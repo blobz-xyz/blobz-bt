@@ -1,4 +1,4 @@
-REWARD_SUPPLY = 10_899_000_000_000 # 25% of supply
+REWARD_SUPPLY = 10_899_000_000
 DIR_SNAPSHOT  = "./snapshot"
 #GALXE_ADDRS  = "./snapshot/Droptimism.csv"
 
