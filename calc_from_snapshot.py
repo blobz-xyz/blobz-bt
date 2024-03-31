@@ -57,8 +57,8 @@ for (target, srcs) in MIGRATE_WALLETS.items():
         del chunk[src]
 
 # 3.2) filter only galxe addresses only
-galxe = [ line.strip().split(',')[0].lower() for line in open(GALXE_ADDRS, 'r') ]
-chunk = { key: value for key, value in chunk.items() if key in galxe }
+# galxe = [ line.strip().split(',')[0].lower() for line in open(GALXE_ADDRS, 'r') ]
+# chunk = { key: value for key, value in chunk.items() if key in galxe }
 
 # 4) sum points
 total_points = 0
@@ -70,8 +70,8 @@ for (addr, info) in chunk.items():
 for (addr, info) in chunk.items():
     # add checksum address
     info['addr'] = to_checksum_address(addr)
-    # calc OP
-    info['op'] = REWARD_OP * (info['points'] / total_points)
+    # calc reward
+    info['reward'] =  REWARD_SUPPLY * (info['points'] / total_points)
 
 # 6) reshape chunk to list of dict
 chunk = chunk.values()
@@ -90,16 +90,17 @@ for (idx, info) in enumerate(chunk):
 
 # 9) print output (header)
 fields = ','.join([ title for (title, _, _) in CONFIG_COL ])
-print("#,Address,OP,Points,{}".format(fields))
+print("#,Address,$BLOBZ,Points,{}".format(fields))
 
 # 10) print output (body)
 for c in chunk:
-    op = math.floor(c['op'] * 1_000) / 1_000 # floor 3 digits
+    reward = int(c['reward']) # cast reward as int
+    # reward = math.floor(c['reward'] * 1_000) / 1_000 # floor 3 digits
     fields = ','.join([ str(c.get(title) or 0) for (title, _, _) in CONFIG_COL ])
     print('{},{},{},{},{}'.format(
         c['no'],        # no
         c['addr'],      # addr
-        op,             # OP reward
+        reward,         # reward
         c['points'],    # points
         fields,         # collection points
     ))
