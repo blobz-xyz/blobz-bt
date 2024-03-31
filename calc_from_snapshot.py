@@ -10,7 +10,20 @@ chunk = {}
 for (title, fname, score) in CONFIG_COL:
     # read file line by line
     src_path = '{}/{}'.format(DIR_SNAPSHOT, fname)
-    for line in open(src_path, 'r'):
+    for (idx, line) in enumerate(open(src_path, 'r')):
+
+        # patch quest (questN, Galxe)
+        if title in WEB3_QUESTS:
+            # skip header
+            if idx == 0:
+                continue
+            # skip non-evm wallet
+            addr = line.strip().split(',')[0]
+            if not addr.startswith('0x'):
+                continue
+            # format line
+            line = "{},1".format(addr)
+
         (addr, qty) = line.strip().split(',')
         addr = addr.lower() # [!] use address in lowercase format
                             # [!] prevent sensitive address issue

@@ -22,6 +22,13 @@ CONFIG_COL = [
     [ "RoboSkull",          "RoboSkull.csv",            1 ],
     [ "The Vintract",       "The Vintract.csv",         1 ],
     [ "Zkalien",            "Zkalien + Genesis.csv",    10 ],
+    [ "QuestN",             "questn.csv",               1 ],
+    [ "Galxe",              "galxe.csv",                1 ],
+]
+
+WEB3_QUESTS = [
+    "QuestN",
+    "Galxe",
 ]
 
 BAN_WALLETS = [
