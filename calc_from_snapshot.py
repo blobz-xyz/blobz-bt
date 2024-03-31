@@ -71,7 +71,7 @@ for (addr, info) in chunk.items():
     # add checksum address
     info['addr'] = to_checksum_address(addr)
     # calc reward
-    info['reward'] =  REWARD_SUPPLY * (info['points'] / total_points)
+    info['reward'] = REWARD_SUPPLY * (info['points'] / total_points)
 
 # 6) reshape chunk to list of dict
 chunk = chunk.values()
