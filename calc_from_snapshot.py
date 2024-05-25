@@ -10,20 +10,7 @@ chunk = {}
 for (title, fname, score) in CONFIG_COL:
     # read file line by line
     src_path = '{}/{}'.format(DIR_SNAPSHOT, fname)
-    for (idx, line) in enumerate(open(src_path, 'r')):
-
-        # patch quest (questN, Galxe)
-        if title in WEB3_QUESTS:
-            # skip header
-            if idx == 0:
-                continue
-            # skip non-evm wallet
-            addr = line.strip().split(',')[0]
-            if not addr.startswith('0x'):
-                continue
-            # format line
-            line = "{},1".format(addr)
-
+    for line in open(src_path, 'r'):
         (addr, qty) = line.strip().split(',')
         addr = addr.lower() # [!] use address in lowercase format
                             # [!] prevent sensitive address issue
@@ -70,8 +57,8 @@ for (addr, info) in chunk.items():
 for (addr, info) in chunk.items():
     # add checksum address
     info['addr'] = to_checksum_address(addr)
-    # calc reward
-    info['reward'] = REWARD_SUPPLY * (info['points'] / total_points)
+    # calc BLOBZ
+    info['blobz'] = REWARD_BLOBZ * (info['points'] / total_points)
 
 # 6) reshape chunk to list of dict
 chunk = chunk.values()
@@ -90,17 +77,16 @@ for (idx, info) in enumerate(chunk):
 
 # 9) print output (header)
 fields = ','.join([ title for (title, _, _) in CONFIG_COL ])
-print("#,Address,$BLOBZ,Points,{}".format(fields))
+print("#,Address,BLOBZ,Points,{}".format(fields))
 
 # 10) print output (body)
 for c in chunk:
-    reward = int(c['reward']) # cast reward as int
-    # reward = math.floor(c['reward'] * 1_000) / 1_000 # floor 3 digits
+    blobz = int(c['blobz'] / 1_000_000) # million
     fields = ','.join([ str(c.get(title) or 0) for (title, _, _) in CONFIG_COL ])
     print('{},{},{},{},{}'.format(
         c['no'],        # no
         c['addr'],      # addr
-        reward,         # reward
+        blobz,          # BLOBZ (million unit)
         c['points'],    # points
         fields,         # collection points
     ))
