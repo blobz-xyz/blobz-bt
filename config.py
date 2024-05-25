@@ -1,5 +1,5 @@
-REWARD_SUPPLY = 1_000_000_000_000
-DIR_SNAPSHOT  = "./snapshot"
+REWARD_BLOBZ = 43_596_000_000_000
+DIR_SNAPSHOT = "./snapshot"
 #GALXE_ADDRS  = "./snapshot/Droptimism.csv"
 
 CONFIG_COL = [
@@ -22,13 +22,8 @@ CONFIG_COL = [
     [ "RoboSkull",          "RoboSkull.csv",            1 ],
     [ "The Vintract",       "The Vintract.csv",         1 ],
     [ "Zkalien",            "Zkalien + Genesis.csv",    10 ],
-    [ "QuestN",             "questn.csv",               1 ],
-    [ "Galxe",              "galxe.csv",                1 ],
-]
-
-WEB3_QUESTS = [
-    "QuestN",
-    "Galxe",
+    #[ "GALXE",              "galxe.csv",                1 ],
+    #[ "QuestN",             "questn.csv",               1 ],
 ]
 
 BAN_WALLETS = [
